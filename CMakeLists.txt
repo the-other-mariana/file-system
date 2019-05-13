@@ -3,4 +3,4 @@ project(file_system)
 
 set(CMAKE_CXX_STANDARD 14)
 
-add_executable(file_system main.cpp Hash.cpp Hash.h)
+add_executable(file_system main.cpp Commands.h HashMap/hashMap.h HashMap/HashNode.h HashMap/KeyHash.h)
