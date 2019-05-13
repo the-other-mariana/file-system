@@ -4,9 +4,10 @@
 using namespace std;
 
 GlobalInfo globalInfo;
-void *blockStatus;
+bool *blockStatus;
 
 int main() {
+    globalInfo.initialized = false;
     vector<string> cmds = createCmds();
     int cmdIndex = -1;
     while (cmdIndex < 9) {
@@ -22,30 +23,52 @@ int main() {
 
             switch (cmdIndex) {
                 case 0://create
-                    blockStatus = createFileSystem(globalInfo, lineParts);
+                    if (!globalInfo.initialized) {
+                        blockStatus = createFileSystem(globalInfo, lineParts);
+                    } else cout << "You have a file system loaded already" << endl;
                     break;
                 case 1://save
-                    cout << sizeof(blockStatus) << endl;
+                    if (globalInfo.initialized) {
+                        cout << sizeof(blockStatus) << endl;
+                    }
                     break;
                 case 2://open
+                    if (!globalInfo.initialized) {
+                        loadFileSystem(globalInfo, lineParts[1]);
+                    } else cout << "You have a file system loaded already" << endl;
                     break;
                 case 3://load
-                    loadFile();
+                    if (globalInfo.initialized) {
+                        loadFile(globalInfo, blockStatus);
+                    }
                     break;
                 case 4://download
+                    if (globalInfo.initialized) {
+                        downloadFile(globalInfo);
+                    }
                     break;
                 case 5://ls
+                    if (globalInfo.initialized) {
+                        listFiles(globalInfo);
+                    }
                     break;
                 case 6://rm
+                    if (globalInfo.initialized) {
+                        removeFile(globalInfo, blockStatus);
+                    }
                     break;
                 case 7://info
-                    readFileSystem(globalInfo);
+                    if (globalInfo.initialized) {
+                        readFileSystem(globalInfo);
+                        readDataFile(globalInfo);
+                    }
                     break;
                 case 8://details
+                    if (globalInfo.initialized) {}
                     break;
             }
-
-
+            if (!globalInfo.initialized)
+                cout << "please open a file system first" << endl;
         }
     }
 
