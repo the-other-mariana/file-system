@@ -10,6 +10,10 @@ int main() {
     globalInfo.initialized = false;
     vector<string> cmds = createCmds();
     int cmdIndex = -1;
+
+    cout << "-- Virtual File System Program. 2019-2. Version 1.0 --" << endl;
+    cout << "Please enter a command. Enter << exit >> to terminate the program." << endl;
+
     while (cmdIndex < 9) {
         cout << (char) 38 << " ";
 
@@ -19,32 +23,31 @@ int main() {
 
         cmdIndex = getCmdIndex(lineParts[0], cmds);
         if (cmdIndex >= 0) {
-            cout << "user cmd: " << cmds[cmdIndex] << endl;
 
             switch (cmdIndex) {
-                case 0://create
-                    if (!globalInfo.initialized) {
-                        blockStatus = createFileSystem(globalInfo, lineParts);
-                    } else cout << "You have a file system loaded already" << endl;
+                case 0://create *name* *blockSize* *numberOfBlocks*
+                    if (!globalInfo.initialized && lineParts.size() == 4) {
+                        if(validFS(lineParts)) createFileSystem(globalInfo, lineParts);
+                    } else cout << "You have a file system loaded already." << endl;
                     break;
                 case 1://save
                     if (globalInfo.initialized) {
-                        cout << sizeof(blockStatus) << endl;
+                        cout << "File system saved successfully." << endl;
                     }
                     break;
-                case 2://open
-                    if (!globalInfo.initialized) {
+                case 2://open *name*
+                    if (!globalInfo.initialized && lineParts.size() == 2) {
                         loadFileSystem(globalInfo, lineParts[1]);
-                    } else cout << "You have a file system loaded already" << endl;
+                    } else cout << "You have a file system loaded already." << endl;
                     break;
-                case 3://load
-                    if (globalInfo.initialized) {
-                        loadFile(globalInfo, blockStatus);
+                case 3://load original.txt copy.txt
+                    if (globalInfo.initialized && lineParts.size() == 3) {
+                        loadFile(globalInfo, lineParts[1], lineParts[2]);
                     }
                     break;
-                case 4://download
-                    if (globalInfo.initialized) {
-                        downloadFile(globalInfo);
+                case 4://download copy.txt newCopy.txt
+                    if (globalInfo.initialized && lineParts.size() == 3) {
+                        downloadFile(globalInfo, lineParts[1], lineParts[2]);
                     }
                     break;
                 case 5://ls
@@ -52,23 +55,24 @@ int main() {
                         listFiles(globalInfo);
                     }
                     break;
-                case 6://rm
-                    if (globalInfo.initialized) {
-                        removeFile(globalInfo, blockStatus);
+                case 6://rm archivo.txt
+                    if (globalInfo.initialized && lineParts.size() == 2) {
+                        removeFile(globalInfo, lineParts[1]);
                     }
                     break;
                 case 7://info
                     if (globalInfo.initialized) {
-                        readFileSystem(globalInfo);
-                        readDataFile(globalInfo);
+                        displayInfo(globalInfo);
                     }
                     break;
-                case 8://details
-                    if (globalInfo.initialized) {}
+                case 8://details *file.txt*
+                    if (globalInfo.initialized && lineParts.size() == 2) {
+                        details(globalInfo, lineParts[1]);
+                    }
                     break;
             }
             if (!globalInfo.initialized)
-                cout << "please open a file system first" << endl;
+                cout << "Please open a file system first" << endl;
         }
     }
 
