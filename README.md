@@ -29,7 +29,7 @@ C++ version: `c++ 14`
 15. Click on `OK`.
 16. Create a new c++ executable project and it should look like this: <br />
 
-![alt text]()<br/>
+![alt text](https://github.com/the-other-mariana/file-system/blob/master/example-clion.png)<br/>
 
 ## Usage
 
