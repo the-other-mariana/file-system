@@ -8,7 +8,7 @@ This a simulation of a file system made in C++. <br />
 
 These are the main commands that you can type once the file `main.cpp` is running. <br />
 
-### - Create a virtual file system
+###- Create a virtual file system
 
 To create your file system (empty initialization), go to the output program's directory and type: <br />
 
