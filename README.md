@@ -33,6 +33,8 @@ C++ version: `c++ 14`
 
 ## Usage
 
+Go to the folder's directory where this repo was stored, and then right click to `Open Folder as CLion Project` option. <br />
+
 These are the main commands that you can type once the file `main.cpp` is running. <br />
 
 ### 1. Create a virtual file system
