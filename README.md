@@ -27,7 +27,7 @@ C++ version: `c++ 14`
 13. Click `Apply`.
 14. Move the created MinGW to the upper position in the list, so that it is default.
 15. Click on `OK`.
-16. Create a new c++ executable project and it should look like this: <br />
+16. Create a new c++ executable project (c++ 14) and it should look like this: <br />
 
 ![alt text](https://github.com/the-other-mariana/file-system/blob/master/example-clion.png)<br/>
 
